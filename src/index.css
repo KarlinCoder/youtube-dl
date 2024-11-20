@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.animation-modal-on {
+  animation: animation-modal-on 0.1s ease-in-out both;
+}
+
+@keyframes animation-modal-on {
+  from {
+    scale: 0.6;
+    opactity: 0.8;
+  }
+  to {
+    scale: 1;
+    opactity: 1;
+  }
+}
