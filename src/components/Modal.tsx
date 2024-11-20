@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { VideoResolution, Video as VideoType } from "../types";
 import { shrinkText } from "../lib/shrinkText";
 import { DownloadButton } from "./DownloadButton";
-import { Video } from "youtubei";
 import { FaCircleXmark } from "react-icons/fa6";
 
 interface ModalProps {
@@ -25,31 +24,6 @@ export const Modal: React.FC<ModalProps> = ({ video, onShow }) => {
   useEffect(() => {
     window.document.querySelector("body")?.classList.add("overflow-hidden");
 
-    const setAvailableResolutions = () => {
-      const resolutions = ["144", "240", "360", "480", "720", "1080"];
-
-      for (const resolution of resolutions) {
-        let serverConvertUrl = `https://core.gv.cmnetworkusercontent.com/convert/${video.id}/${resolution}`;
-        const evtSource = new EventSource(serverConvertUrl);
-
-        evtSource.addEventListener(
-          "close",
-          (evt) => {
-            evtSource.close();
-            const data = JSON.parse(evt.data);
-            // Actualiza el estado usando la resolución correcta como clave
-            setVideoResolutions((state) => ({
-              ...state,
-              [resolution]: !!data.error, // true si hay error, false si no
-            }));
-          },
-          false
-        );
-      }
-    };
-
-    setAvailableResolutions();
-
     return () => {
       window.document
         .querySelector("body")
@@ -65,11 +39,17 @@ export const Modal: React.FC<ModalProps> = ({ video, onShow }) => {
       "close",
       (evt) => {
         evtSource.close();
-        const data = JSON.parse(evt.data);
-        const url = `${data.stream}?download=${video.title
-          .split(" ")
-          .join("_")}(${res}p)`;
-        window.location.href = url;
+        try {
+          const data = JSON.parse(evt.data);
+          if (data && data.stream) {
+            const url = `${data.stream}?download=diablo(${res}p)`;
+            window.location.href = url;
+          } else {
+            console.error("Datos inválidos recibidos:", data);
+          }
+        } catch (error) {
+          console.error("Error al parsear los datos:", error);
+        }
       },
       false
     );
@@ -103,7 +83,6 @@ export const Modal: React.FC<ModalProps> = ({ video, onShow }) => {
                 key={res}
                 num={res}
                 handleDownload={handleDownload}
-                disabled={videoResolutions[res]}
               />
             ))}
           </div>

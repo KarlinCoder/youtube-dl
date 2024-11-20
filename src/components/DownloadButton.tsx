@@ -2,13 +2,13 @@ import { FaFilm } from "react-icons/fa6";
 import { VideoResolution } from "../types";
 
 interface DownloadButtonProps {
-  disabled: boolean;
+  disabled?: boolean;
   num: VideoResolution;
   handleDownload: (res: VideoResolution) => void;
 }
 
 export const DownloadButton: React.FC<DownloadButtonProps> = ({
-  disabled = true,
+  disabled = false,
   num,
   handleDownload,
 }) => {
