@@ -34,7 +34,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
   };
 
   return (
-    <div className="shadow-xl border-2 rounded-md border-neutral-200 p-4">
+    <div className="shadow-xl bg-neutral-50 border-2 rounded-md border-neutral-200 p-4">
       <header className="">
         <div className="w-[200px] h-[110px]">
           <img

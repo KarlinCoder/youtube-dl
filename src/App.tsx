@@ -43,7 +43,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col justify-between items-center min-w-dvh min-h-dvh box-border bg-neutral-100">
+    <div className="flex flex-col justify-between items-center min-w-dvh min-h-dvh box-border bg-gradient-to-br from-white to-neutral-200">
       <Input onSearch={handleInputSearch} loading={loading}>
         {isEmpty && <p>No se encontraron videos</p>}
         {error && <p>{error}</p>}

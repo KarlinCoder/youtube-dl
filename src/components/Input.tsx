@@ -31,15 +31,18 @@ export const Input: React.FC<InputProps> = ({
       </div>
       <main className="relative flex justifyc-center min-w-[50px] max-w-[500px] w-full px-8">
         <input
+          onKeyDown={(e) => {
+            if (e.key === "Enter") onSearch(text);
+          }}
           type="text"
           onChange={handleChange}
-          className="w-full border-[2px] border-neutral-500 bg-neutral-50 py-3 px-6 outline-none border-r-0 rounded-full focus:shadow-xl transition-shadow"
+          className="w-full border-[2px] border-neutral-500 bg-white py-3 px-6 outline-none border-r-0 rounded-full focus:shadow-xl transition-shadow"
           placeholder="Video o URL del video"
         />
         <button
           disabled={loading}
           onClick={() => onSearch(text)}
-          className="absolute grid place-content-center right-0 h-full mr-[20px] w-[52px] bg-neutral-700 hover:bg-neutral-800 active:bg-neutral-700 rounded-full text-white disabled:bg-neutral-500"
+          className="absolute grid place-content-center right-0 h-full mr-[26px] w-[52px] bg-neutral-700 hover:bg-neutral-800 active:bg-neutral-700 rounded-full text-white disabled:bg-neutral-500"
         >
           {loading ? (
             <VscLoading className="animate-spin" />
