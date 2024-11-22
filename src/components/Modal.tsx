@@ -4,8 +4,8 @@ import { shrinkText } from "../lib/shrinkText";
 import { DownloadButton } from "./DownloadButton";
 
 interface ModalProps {
-  video: VideoType;
-  onShow: (value: boolean) => void;
+  video: VideoType | null;
+  onShow: (show: boolean) => void;
 }
 
 interface CloseButtonProps {
@@ -43,10 +43,12 @@ export const Modal: React.FC<ModalProps> = ({ video, onShow }) => {
     return () => {
       document.body.classList.remove("overflow-hidden");
     };
-  }, [video.id]);
+  }, [video!.id]);
 
   const handleDownload = (res: VideoResolution) => {
-    const serverConvertUrl = `https://core.gv.cmnetworkusercontent.com/convert/${video.id}/${res}`;
+    const serverConvertUrl = `https://core.gv.cmnetworkusercontent.com/convert/${
+      video!.id
+    }/${res}`;
     const evtSource = new EventSource(serverConvertUrl);
 
     evtSource.addEventListener(
@@ -71,7 +73,7 @@ export const Modal: React.FC<ModalProps> = ({ video, onShow }) => {
 
   return (
     <section
-      className="fixed w-screen h-screen flex justify-center items-center bg-neutral-500 bg-opacity-50 z-30 top-0 left-0 bottom-0 p-3"
+      className="fixed w-screen h-screen flex justify-center items-center bg-neutral-500 bg-opacity-50 z-0 top-0 left-0 bottom-0 p-3"
       onClick={() => onShow(false)}
     >
       <main
@@ -82,13 +84,13 @@ export const Modal: React.FC<ModalProps> = ({ video, onShow }) => {
         <header>
           <div className="w-[320px] h-[200px] mx-auto">
             <img
-              src={video.thumbnail}
+              src={video!.thumbnail}
               alt="video thumbnail"
               className="w-full h-full"
             />
           </div>
           <p className="leading-2 sm:text-xl sm:leading-2 text-center">
-            {shrinkText(video.title, 100)}
+            {shrinkText(video!.title, 100)}
           </p>
         </header>
         <section className="mt-5">
