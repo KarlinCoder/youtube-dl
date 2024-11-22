@@ -3,6 +3,7 @@ import { Input } from "./components/Input";
 import { VideoContainer } from "./components/VIdeosContainer";
 import { getVideos } from "./lib/getVideos";
 import { Video as VideoType } from "./types";
+import { Footer } from "./components/Footer";
 
 export const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -42,12 +43,15 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-w-dvh min-h-dvh box-border">
-      <Input onSearch={handleInputSearch} />
-      {loading && <p>Cargando videos...</p>}
-      {isEmpty && <p>No se encontraron videos</p>}
-      {error && <p>{error}</p>}
+    <div className="flex flex-col justify-between items-center min-w-dvh min-h-dvh box-border bg-neutral-100">
+      <Input onSearch={handleInputSearch} loading={loading}>
+        {isEmpty && <p>No se encontraron videos</p>}
+        {error && <p>{error}</p>}
+      </Input>
+
       {videosArray.length > 0 && <VideoContainer videosArray={videosArray} />}
+
+      <Footer />
     </div>
   );
 };

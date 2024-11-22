@@ -9,7 +9,7 @@ export const VideoContainer: React.FC<VideoContainerProps> = ({
   videosArray,
 }) => {
   return (
-    <main className="flex flex-wrap justify-center gap-4 box-border">
+    <main className="flex flex-wrap justify-center gap-4 box-border p-6 h-full bg-neutral-400 ">
       {videosArray.map((video) => {
         return <VideoCard video={video} key={video.id} />;
       })}

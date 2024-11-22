@@ -16,7 +16,7 @@ export const DownloadButton: React.FC<DownloadButtonProps> = ({
     <button
       disabled={disabled}
       onClick={() => handleDownload(num)}
-      className="flex justify-center gap-2 items-center disabled:bg-neutral-500 bg-green-500 text-white text-md w-[80px] h-[40px] hover:bg-green-600 active:bg-green-500 rounded-md transition-colors cursor-pointer"
+      className="flex justify-center gap-2 items-center disabled:bg-neutral-500 bg-green-500 text-white text-md w-[80px] h-[40px] hover:bg-green-600 transition-none active:bg-green-500 rounded-md cursor-pointer"
     >
       <FaFilm />
       <p className="text-white">{num}p</p>
