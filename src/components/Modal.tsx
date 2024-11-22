@@ -2,12 +2,28 @@ import { useEffect, useState } from "react";
 import { VideoResolution, Video as VideoType } from "../types";
 import { shrinkText } from "../lib/shrinkText";
 import { DownloadButton } from "./DownloadButton";
-import { FaCircleXmark } from "react-icons/fa6";
 
 interface ModalProps {
   video: VideoType;
   onShow: (value: boolean) => void;
 }
+
+interface CloseButtonProps {
+  onClick: () => void;
+}
+
+const CloseButton: React.FC<CloseButtonProps> = ({ onClick }) => (
+  <div
+    onClick={onClick}
+    className="absolute top-5 right-5 cursor-pointer group"
+    aria-label="Close modal"
+  >
+    <div className="relative w-6 h-6">
+      <span className="absolute top-0 left-0 w-full h-[3px] bg-red-500 rounded-full rotate-45 transition-transform duration-300 ease-in-out group-hover:bg-red-600 group-active:bg-red-500"></span>
+      <span className="absolute top-0 left-0 w-full h-[3px] bg-red-500 rounded-full -rotate-45 transition-transform duration-300 ease-in-out group-hover:bg-red-600 group-active:bg-red-500"></span>
+    </div>
+  </div>
+);
 
 const resolutionArray: Array<VideoResolution> = [144, 240, 360, 480, 720, 1080];
 
@@ -22,17 +38,15 @@ export const Modal: React.FC<ModalProps> = ({ video, onShow }) => {
   });
 
   useEffect(() => {
-    window.document.querySelector("body")?.classList.add("overflow-hidden");
+    document.body.classList.add("overflow-hidden");
 
     return () => {
-      window.document
-        .querySelector("body")
-        ?.classList.remove("overflow-hidden");
+      document.body.classList.remove("overflow-hidden");
     };
   }, [video.id]);
 
   const handleDownload = (res: VideoResolution) => {
-    let serverConvertUrl = `https://core.gv.cmnetworkusercontent.com/convert/${video.id}/${res}`;
+    const serverConvertUrl = `https://core.gv.cmnetworkusercontent.com/convert/${video.id}/${res}`;
     const evtSource = new EventSource(serverConvertUrl);
 
     evtSource.addEventListener(
@@ -41,7 +55,7 @@ export const Modal: React.FC<ModalProps> = ({ video, onShow }) => {
         evtSource.close();
         try {
           const data = JSON.parse(evt.data);
-          if (data && data.stream) {
+          if (data?.stream) {
             const url = `${data.stream}?download=diablo(${res}p)`;
             window.location.href = url;
           } else {
@@ -56,19 +70,20 @@ export const Modal: React.FC<ModalProps> = ({ video, onShow }) => {
   };
 
   return (
-    <section className="fixed w-screen h-screen flex justify-center items-center bg-neutral-500 bg-opacity-50 z-30 top-0 left-0 bottom-0 p-3">
-      <main className="animation-modal-on relative flex flex-col justify-center rounded-md shadow-lg items-center bg-neutral-100 max-w-[700px] w-full p-5">
-        <button
-          onClick={() => onShow(false)}
-          className="text-red-400 absolute top-5 right-5 scale-[2] hover:text-red-500 active:textred400"
-        >
-          <FaCircleXmark />
-        </button>
+    <section
+      className="fixed w-screen h-screen flex justify-center items-center bg-neutral-500 bg-opacity-50 z-30 top-0 left-0 bottom-0 p-3"
+      onClick={() => onShow(false)}
+    >
+      <main
+        onClick={(e) => e.stopPropagation()}
+        className="animation-modal-on relative flex flex-col justify-center rounded-md shadow-lg items-center bg-neutral-100 max-w-[700px] w-full p-5"
+      >
+        <CloseButton onClick={() => onShow(false)} />
         <header>
           <div className="w-[320px] h-[200px] mx-auto">
             <img
               src={video.thumbnail}
-              alt="video cover"
+              alt="video thumbnail"
               className="w-full h-full"
             />
           </div>
