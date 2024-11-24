@@ -23,7 +23,8 @@ export const Input: React.FC<InputProps> = ({
     <header className="flex flex-col gap-5 justify-center items-center w-full pt-8">
       <div className="relative">
         <h1 className="text-3xl md:text-[2.6rem]">
-          Youtube<span className="font-bold">Downloader</span>
+          <span className="text-red-700">Youtube</span>
+          <span className="font-bold">Downloader</span>
           <p className="absolute bottom-[-16px] right-[-25px] text-sm w-[100px]">
             by KarlinCoder
           </p>
@@ -32,7 +33,7 @@ export const Input: React.FC<InputProps> = ({
       <main className="relative flex justifyc-center min-w-[50px] max-w-[700px] w-full px-8">
         <input
           onKeyDown={(e) => {
-            if (e.key === "Enter") onSearch(text);
+            if (e.key === "Enter" && loading === false) onSearch(text);
           }}
           type="text"
           onChange={handleChange}

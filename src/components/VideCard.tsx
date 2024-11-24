@@ -1,9 +1,6 @@
-import { Modal } from "./Modal";
 import { Video as VideoType } from "../types";
-import { useEffect, useState } from "react";
-import { type VideoResolution } from "../types";
+// import { type VideoResolution } from "../types";
 import { shrinkText } from "../lib/shrinkText";
-import { FaDownload } from "react-icons/fa6";
 
 interface VideoCardProps {
   video: VideoType | null;
@@ -16,32 +13,12 @@ export const VideoCard: React.FC<VideoCardProps> = ({
   modalShow,
   modalVideo,
 }) => {
-  const [resolution, setResolution] = useState<VideoResolution>();
-  const [showDowload, setShowDowload] = useState(false);
-
-  useEffect(() => {
-    const API = `https://core.gv.cmnetworkusercontent.com/convert/${resolution}`;
-  }, [video?.id, resolution]);
-
-  useEffect(() => {
-    if (showDowload) {
-      document.body
-        .querySelector(".app-wrapper_custom")
-        ?.classList.add("sm:overflow-hidde");
-    } else {
-      document.body
-        .querySelector(".app-wrapper_custom")
-        ?.classList.remove("sm:overflow-hidde");
-    }
-  }, [showDowload]);
-
-  const handleModal = (value: boolean) => {
-    setShowDowload(value);
-  };
-
   return (
     <div
-      onClick={() => modalShow(true)}
+      onClick={() => {
+        modalShow(true);
+        modalVideo(video!);
+      }}
       className="group shadow-xl bg-neutral-50 border-2 rounded-md border-neutral-200 p-3 hover:scale-105 hover:cursor-pointer transition-transform "
     >
       <header className="">
@@ -56,7 +33,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({
             <p className=" text-white p-2">{shrinkText(video!.title, 100)}</p>
           </div>
 
-          <div className="absolute right-2 bottom-2 bg-neutral-900 bg-opacity-90 text-white px-3 py-[2px]">
+          <div className="absolute right-2 bottom-2 bg-neutral-900 bg-opacity-70 text-white px-3 py-[1px]">
             {video?.duration}
           </div>
         </div>
