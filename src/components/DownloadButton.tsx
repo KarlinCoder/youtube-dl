@@ -21,7 +21,7 @@ export const DownloadButton: React.FC<DownloadButtonProps> = ({
       className="flex justify-center gap-2 px-4 py-2 items-center disabled:bg-neutral-500 bg-green-500 text-white text-md  hover:bg-green-600 transition-none active:bg-green-500 rounded-md cursor-pointer"
     >
       <FaDownload />
-      <p className="text-white">{text}</p>
+      <p className="text-white text-sm">{text}</p>
     </button>
   );
 };

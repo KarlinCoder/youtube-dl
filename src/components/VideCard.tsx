@@ -22,7 +22,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({
       className="group shadow-xl bg-neutral-50 border-2 rounded-md border-neutral-200 p-3 hover:scale-105 hover:cursor-pointer transition-transform "
     >
       <header className="">
-        <div className="relative w-[320px] h-[200px]">
+        <div className="relative w-[300px] h-[180px]">
           <img
             src={video?.thumbnail}
             alt="video thumbnail"
