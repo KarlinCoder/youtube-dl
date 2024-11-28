@@ -2,7 +2,7 @@ import { VideoResolution, Video as VideoType } from "../types";
 import { shrinkText } from "../lib/shrinkText";
 import { DownloadButton } from "./DownloadButton";
 import { useEffect, useState } from "react";
-import { IoMdCloseCircle } from "react-icons/io";
+import { IoIosClose } from "react-icons/io";
 import { VscLoading } from "react-icons/vsc";
 import { FaCheck } from "react-icons/fa6";
 
@@ -75,20 +75,20 @@ export const Modal: React.FC<ModalProps> = ({ video, onShow }) => {
         onClick={(e) => e.stopPropagation()}
         className="relative flex flex-col gap-5 justify-center rounded-md shadow-lg items-center bg-neutral-100 max-w-[90%] sm:max-w-[800px] w-full p-6"
       >
-        <IoMdCloseCircle
+        <IoIosClose
           onClick={() => onShow(false)}
-          className="absolute top-4 right-5 text-red-500 hover:text-red-600 active:text-red-500 scale-[1.8] cursor-pointer"
+          className="absolute top-4 right-5 text-red-500 hover:text-red-600 active:text-red-500 scale-[2.5] cursor-pointer"
         />
         <div className="flex flex-col sm:flex-row gap-4 w-full justify-around items-center">
           <header className="flex flex-col items-center">
-            <div className="max-w-[290px] max-h-[170px] w-full h-full mx-auto border">
+            <div className="max-w-[280px] max-h-[160px] w-full h-full mx-auto border">
               <img
                 src={video!.thumbnail}
                 alt="video thumbnail"
                 className="w-full h-full object-cover select-none"
               />
             </div>
-            <p className="truncate leading-2 text-lg text-center max-w-[300px]">
+            <p className="truncate text-[1rem] text-center max-w-[280px]">
               {shrinkText(video!.title, 100)}
             </p>
           </header>
@@ -115,10 +115,10 @@ export const Modal: React.FC<ModalProps> = ({ video, onShow }) => {
 
         {onProcess && (
           <div className="absolute grid place-items-center w-full h-full bg-black bg-opacity-20 p-4">
-            <main className="relative p-3 flex flex-col justify-center gap-5 items-center max-w-[90%] h-auto bg-white rounded-md">
-              <IoMdCloseCircle
+            <main className="relative p-3 flex flex-col justify-center gap-5 items-center w-full h-full max-w-[400px] max-h-[300px] bg-white rounded-md">
+              <IoIosClose
                 onClick={() => setOnProcess(false)}
-                className="absolute top-4 right-5 text-red-500 hover:text-red-600 active:text-red-500 scale-[1.8] cursor-pointer"
+                className="absolute top-4 right-4  text-red-500 hover:text-red-600 active:text-red-500 scale-[2.5] cursor-pointer"
               />
               <header className="flex w-full justify-center items-center gap-2">
                 <span className="scale-[1.3]">
