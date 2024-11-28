@@ -13,7 +13,7 @@ export const VideoContainer: React.FC<VideoContainerProps> = ({
   toVideoCardModalVideo,
 }) => {
   return (
-    <main className="flex flex-wrap justify-center gap-4 box-border p-6 h-full">
+    <main className="flex flex-wrap justify-center gap-4 box-border p-6 h-full w-full max-w-[1100px]">
       {videosArray.map((video) => {
         return (
           <VideoCard
