@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactNode, useState } from "react";
+import { ChangeEvent, ReactNode, useRef, useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { VscLoading } from "react-icons/vsc";
 
@@ -14,6 +14,7 @@ export const Input: React.FC<InputProps> = ({
   loading,
 }) => {
   const [text, setText] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
@@ -32,12 +33,13 @@ export const Input: React.FC<InputProps> = ({
       </div>
       <main className="relative flex justifyc-center min-w-[50px] max-w-[700px] w-full px-8">
         <input
+          ref={inputRef}
           onKeyDown={(e) => {
             if (e.key === "Enter" && loading === false) onSearch(text);
           }}
           type="text"
           onChange={handleChange}
-          className="w-full border-[2px] text-lg border-neutral-500 bg-white py-3 px-6 outline-none border-r-0 rounded-full focus:shadow-xl transition-shadow"
+          className="w-full border-[2px] text-md border-neutral-500 bg-white py-3 px-6 outline-none border-r-0 rounded-full focus:shadow-xl transition-shadow"
           placeholder="Video o URL del video"
         />
         <button

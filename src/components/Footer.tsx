@@ -2,7 +2,7 @@ import { FaGithub, FaInstagram } from "react-icons/fa6";
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="w-full p-4 bg-neutral-800 flex flex-col">
+    <footer className="w-full p-4 bg-neutral-800 flex flex-col shadow-xl">
       <h2 className="text-center font-bold text-neutral-400 text-lg mx-auto ">
         by KarlinCoder
       </h2>
